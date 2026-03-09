@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>Mon Wiki</title>
@@ -10,31 +9,42 @@
 <body>
 
 <div id="sidebar">
+<h2>Mon Wiki</h2>
 
-<h2>Wiki</h2>
-
-<button onclick="createPage()">Nouvelle page</button>
+<button onclick="createPage()">➕ Nouvelle page</button>
 <button onclick="toggleDark()">🌙 Mode sombre</button>
 
 <div id="pageList"></div>
-
 </div>
+
 
 <div id="main">
 
 <h1 id="pageTitle">Accueil</h1>
 
-<div id="pageContent"></div>
+<div id="toolbar">
 
-<div id="editor" style="display:none">
+<button onclick="format('bold')"><b>B</b></button>
 
-<input id="title" placeholder="Titre">
+<button onclick="format('italic')"><i>I</i></button>
 
-<textarea id="content" placeholder="Contenu"></textarea>
+<button onclick="format('underline')"><u>U</u></button>
 
-<button onclick="savePage()">Sauvegarder</button>
+<select onchange="changeSize(this.value)">
+<option value="3">Texte</option>
+<option value="5">Grand</option>
+<option value="7">Titre</option>
+</select>
+
+<button onclick="addLink()">🔗 Lien</button>
+<button onclick="addImage()">🖼 Image</button>
+<button onclick="addVideo()">🎥 Vidéo</button>
+
+<button onclick="savePage()">💾 Sauvegarder</button>
 
 </div>
+
+<div id="editor" contenteditable="true"></div>
 
 </div>
 
