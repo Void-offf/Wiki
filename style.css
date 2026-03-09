@@ -3,8 +3,8 @@ margin:0;
 font-family:Arial;
 display:flex;
 background:#f4f4f4;
+color:#222;
 }
-
 #sidebar{
 width:220px;
 background:#2f3a44;
@@ -13,45 +13,42 @@ padding:20px;
 height:100vh;
 overflow:auto;
 }
-
-#sidebar button{
+#sidebar button, #sidebar input{
 width:100%;
 margin-bottom:10px;
+padding:6px;
+border:none;
+border-radius:4px;
 }
-
 #pageList a{
 display:block;
 color:white;
 margin:6px 0;
 cursor:pointer;
 }
-
 #main{
 flex:1;
-padding:30px;
+padding:20px;
 }
-
 #toolbar{
 margin-bottom:10px;
 }
-
-#toolbar button{
+#toolbar button, #toolbar select{
 margin-right:5px;
+padding:4px 6px;
 }
-
 #editor{
 background:white;
 min-height:400px;
 padding:15px;
 border-radius:8px;
 border:1px solid #ccc;
+overflow:auto;
 }
-
 .dark{
 background:#1e1e1e;
 color:white;
 }
-
 .dark #editor{
 background:#2a2a2a;
 color:white;
