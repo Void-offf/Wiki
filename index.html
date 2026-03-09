@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mini Wiki Fonctionnel</title>
+<title>Mini Wiki Fiable</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,13 +19,13 @@
 <h1 id="pageTitle">Accueil</h1>
 
 <div id="toolbar">
-<button onclick="format('bold')"><b>B</b></button>
-<button onclick="format('italic')"><i>I</i></button>
-<button onclick="format('underline')"><u>U</u></button>
+<button onclick="wrapTag('b')"><b>B</b></button>
+<button onclick="wrapTag('i')"><i>I</i></button>
+<button onclick="wrapTag('u')"><u>U</u></button>
 <select onchange="changeSize(this.value)">
-<option value="3">Texte</option>
-<option value="5">Grand</option>
-<option value="7">Titre</option>
+<option value="16">16px</option>
+<option value="20">20px</option>
+<option value="24">24px</option>
 </select>
 <button onclick="addLink()">🔗 Lien</button>
 <button onclick="addImage()">🖼 Image</button>
