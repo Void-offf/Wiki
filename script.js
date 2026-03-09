@@ -5,12 +5,13 @@ let currentPage = null
 renderList()
 showDefault()
 
+// stockage local
 function saveStorage(){
     localStorage.setItem("wikiPages", JSON.stringify(pages))
     localStorage.setItem("wikiHistory", JSON.stringify(historyLog))
 }
 
-// Créer une page
+// Création page
 function createPage(){
     let title = prompt("Nom de la page")
     if(!title || pages[title]){
@@ -24,7 +25,7 @@ function createPage(){
     showPage(title)
 }
 
-// Lister les pages
+// Lister pages
 function renderList(){
     let list = document.getElementById("pageList")
     list.innerHTML = ""
@@ -36,7 +37,7 @@ function renderList(){
     }
 }
 
-// Rechercher
+// Recherche
 function searchPages(){
     let query = document.getElementById("search").value.toLowerCase()
     let list = document.getElementById("pageList")
@@ -62,7 +63,7 @@ function showPage(title){
     currentPage = title
     document.getElementById("pageTitle").innerText = title
     document.getElementById("editor").innerHTML = pages[title]
-    document.getElementById("history").style.display="none"
+    document.getElementById("history").style.display = "none"
 }
 
 // Sauvegarder page
@@ -89,18 +90,27 @@ function showHistory(){
     div.style.display = "block"
 }
 
-// WYSIWYG fiable pour texte
-function wrapTag(tag){
+// Fonctions WYSIWYG fiables
+
+function toggleStyle(tag){
     let sel = window.getSelection()
     if(!sel.rangeCount) return
     let range = sel.getRangeAt(0)
-    let wrapper = document.createElement(tag)
-    wrapper.appendChild(range.extractContents())
-    range.insertNode(wrapper)
+    let parent = range.commonAncestorContainer.parentNode
+
+    // si déjà appliqué -> retirer
+    if(parent && parent.tagName && parent.tagName.toLowerCase() === tag){
+        let content = parent.innerHTML
+        parent.replaceWith(...Array.from(parent.childNodes)) // enlève le tag
+        return
+    }
+
+    let el = document.createElement(tag)
+    el.appendChild(range.extractContents())
+    range.insertNode(el)
 }
 
-// Changer taille texte
-function changeSize(size){
+function changeFontSize(size){
     let sel = window.getSelection()
     if(!sel.rangeCount) return
     let range = sel.getRangeAt(0)
@@ -110,7 +120,17 @@ function changeSize(size){
     range.insertNode(span)
 }
 
-// Liens et médias
+function changeColor(color){
+    let sel = window.getSelection()
+    if(!sel.rangeCount) return
+    let range = sel.getRangeAt(0)
+    let span = document.createElement("span")
+    span.style.color = color
+    span.appendChild(range.extractContents())
+    range.insertNode(span)
+}
+
+// Liens
 function addLink(){
     let url = prompt("URL du lien")
     if(!url) return
@@ -124,6 +144,7 @@ function addLink(){
     range.insertNode(a)
 }
 
+// Images
 function addImage(){
     document.getElementById("fileInput").click()
 }
@@ -136,6 +157,11 @@ function uploadImage(event){
         let img = document.createElement("img")
         img.src = e.target.result
         img.style.maxWidth = "100%"
+        img.style.cursor = "pointer"
+        img.onclick = ()=> {
+            let newSize = prompt("Nouvelle largeur en px", img.width)
+            if(newSize) img.width = newSize
+        }
         let sel = window.getSelection()
         if(!sel.rangeCount) return
         sel.getRangeAt(0).insertNode(img)
@@ -143,6 +169,7 @@ function uploadImage(event){
     reader.readAsDataURL(file)
 }
 
+// Vidéo
 function addVideo(){
     let url = prompt("URL mp4")
     if(!url) return
@@ -150,6 +177,11 @@ function addVideo(){
     video.src = url
     video.controls = true
     video.width = 400
+    video.style.cursor = "pointer"
+    video.onclick = ()=> {
+        let newSize = prompt("Nouvelle largeur en px", video.width)
+        if(newSize) video.width = newSize
+    }
     let sel = window.getSelection()
     if(!sel.rangeCount) return
     sel.getRangeAt(0).insertNode(video)
