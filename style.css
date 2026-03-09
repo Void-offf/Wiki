@@ -39,17 +39,24 @@ padding:4px 6px;
 }
 #editor{
 background:white;
-min-height:400px;
+min-height:300px;
 padding:15px;
 border-radius:8px;
 border:1px solid #ccc;
 overflow:auto;
 }
+#preview{
+background:#fafafa;
+padding:15px;
+border-radius:8px;
+margin-top:10px;
+border:1px solid #ddd;
+}
 .dark{
 background:#1e1e1e;
 color:white;
 }
-.dark #editor{
+.dark #editor, .dark #preview{
 background:#2a2a2a;
 color:white;
 }
