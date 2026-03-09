@@ -2,53 +2,49 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mon Wiki</title>
+<title>Mini Wiki Ultime</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div id="sidebar">
-<h2>Mon Wiki</h2>
-
+<h2>Mini Wiki</h2>
 <button onclick="createPage()">➕ Nouvelle page</button>
 <button onclick="toggleDark()">🌙 Mode sombre</button>
-
+<input type="text" id="search" placeholder="Rechercher..." oninput="searchPages()">
 <div id="pageList"></div>
 </div>
 
-
 <div id="main">
-
 <h1 id="pageTitle">Accueil</h1>
 
 <div id="toolbar">
-
-<button onclick="format('bold')"><b>B</b></button>
-
-<button onclick="format('italic')"><i>I</i></button>
-
-<button onclick="format('underline')"><u>U</u></button>
-
+<button onclick="boldText()">B</button>
+<button onclick="italicText()">I</button>
+<button onclick="underlineText()">U</button>
 <select onchange="changeSize(this.value)">
 <option value="3">Texte</option>
 <option value="5">Grand</option>
 <option value="7">Titre</option>
 </select>
-
 <button onclick="addLink()">🔗 Lien</button>
 <button onclick="addImage()">🖼 Image</button>
 <button onclick="addVideo()">🎥 Vidéo</button>
-
 <button onclick="savePage()">💾 Sauvegarder</button>
-
+<button onclick="showHistory()">🕑 Historique</button>
 </div>
 
 <div id="editor" contenteditable="true"></div>
 
+<div id="preview"></div>
+
+<div id="history" style="display:none;"></div>
+
+<input type="file" id="fileInput" style="display:none" onchange="uploadImage(event)">
+
 </div>
 
 <script src="script.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>
