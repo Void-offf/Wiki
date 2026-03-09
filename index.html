@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>Mon Wiki</title>
@@ -8,20 +9,36 @@
 
 <body>
 
-<h1>Mon Wiki</h1>
+<div id="sidebar">
 
-<input id="search" placeholder="Rechercher une page">
+<h2>Wiki</h2>
 
-<button onclick="createPage()">Créer une page</button>
+<button onclick="createPage()">Nouvelle page</button>
+<button onclick="toggleDark()">🌙 Mode sombre</button>
 
-<div id="pages"></div>
+<div id="pageList"></div>
 
-<div id="editor" style="display:none;">
+</div>
+
+<div id="main">
+
+<h1 id="pageTitle">Accueil</h1>
+
+<div id="pageContent"></div>
+
+<div id="editor" style="display:none">
+
 <input id="title" placeholder="Titre">
+
 <textarea id="content" placeholder="Contenu"></textarea>
+
 <button onclick="savePage()">Sauvegarder</button>
+
+</div>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
