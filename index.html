@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mon Wiki</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Mon Wiki</h1>
+
+<input id="search" placeholder="Rechercher une page">
+
+<button onclick="createPage()">Créer une page</button>
+
+<div id="pages"></div>
+
+<div id="editor" style="display:none;">
+<input id="title" placeholder="Titre">
+<textarea id="content" placeholder="Contenu"></textarea>
+<button onclick="savePage()">Sauvegarder</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
