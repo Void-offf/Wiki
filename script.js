@@ -10,6 +10,7 @@ function saveStorage(){
     localStorage.setItem("wikiHistory", JSON.stringify(historyLog))
 }
 
+// Créer une page
 function createPage(){
     let title = prompt("Nom de la page")
     if(!title || pages[title]){
@@ -23,6 +24,7 @@ function createPage(){
     showPage(title)
 }
 
+// Lister les pages
 function renderList(){
     let list = document.getElementById("pageList")
     list.innerHTML = ""
@@ -34,6 +36,7 @@ function renderList(){
     }
 }
 
+// Rechercher
 function searchPages(){
     let query = document.getElementById("search").value.toLowerCase()
     let list = document.getElementById("pageList")
@@ -48,18 +51,21 @@ function searchPages(){
     }
 }
 
+// Afficher page par défaut
 function showDefault(){
     let first = Object.keys(pages)[0]
     if(first) showPage(first)
 }
 
+// Afficher page
 function showPage(title){
     currentPage = title
     document.getElementById("pageTitle").innerText = title
     document.getElementById("editor").innerHTML = pages[title]
-    document.getElementById("history").style.display = "none"
+    document.getElementById("history").style.display="none"
 }
 
+// Sauvegarder page
 function savePage(){
     if(!currentPage) return
     historyLog[currentPage].push(pages[currentPage])
@@ -83,14 +89,39 @@ function showHistory(){
     div.style.display = "block"
 }
 
-// Éditeur type Word
-function format(command){ document.execCommand(command, false, null) }
-function changeSize(size){ document.execCommand("fontSize", false, size) }
+// WYSIWYG fiable pour texte
+function wrapTag(tag){
+    let sel = window.getSelection()
+    if(!sel.rangeCount) return
+    let range = sel.getRangeAt(0)
+    let wrapper = document.createElement(tag)
+    wrapper.appendChild(range.extractContents())
+    range.insertNode(wrapper)
+}
+
+// Changer taille texte
+function changeSize(size){
+    let sel = window.getSelection()
+    if(!sel.rangeCount) return
+    let range = sel.getRangeAt(0)
+    let span = document.createElement("span")
+    span.style.fontSize = size + "px"
+    span.appendChild(range.extractContents())
+    range.insertNode(span)
+}
 
 // Liens et médias
 function addLink(){
     let url = prompt("URL du lien")
-    if(url) document.execCommand("createLink", false, url)
+    if(!url) return
+    let sel = window.getSelection()
+    if(!sel.rangeCount) return
+    let range = sel.getRangeAt(0)
+    let a = document.createElement("a")
+    a.href = url
+    a.target = "_blank"
+    a.appendChild(range.extractContents())
+    range.insertNode(a)
 }
 
 function addImage(){
@@ -102,18 +133,26 @@ function uploadImage(event){
     if(!file) return
     let reader = new FileReader()
     reader.onload = function(e){
-        let img = `<img src="${e.target.result}" style="max-width:100%"/>`
-        document.execCommand("insertHTML", false, img)
+        let img = document.createElement("img")
+        img.src = e.target.result
+        img.style.maxWidth = "100%"
+        let sel = window.getSelection()
+        if(!sel.rangeCount) return
+        sel.getRangeAt(0).insertNode(img)
     }
     reader.readAsDataURL(file)
 }
 
 function addVideo(){
     let url = prompt("URL mp4")
-    if(url){
-        let video = `<video controls width="400"><source src="${url}"></video>`
-        document.execCommand("insertHTML", false, video)
-    }
+    if(!url) return
+    let video = document.createElement("video")
+    video.src = url
+    video.controls = true
+    video.width = 400
+    let sel = window.getSelection()
+    if(!sel.rangeCount) return
+    sel.getRangeAt(0).insertNode(video)
 }
 
 // Mode sombre
